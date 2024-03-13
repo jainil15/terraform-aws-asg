@@ -8,11 +8,12 @@ resource "aws_autoscaling_group" "this" {
   vpc_zone_identifier       = var.vpc_zone_identifier
   health_check_grace_period = 300
   health_check_type         = "ELB"
+  suspended_processes       = ["Terminate"]
+  force_delete              = true
   launch_template {
     id      = aws_launch_template.this.id
     version = "$Latest"
   }
-
 }
 
 resource "aws_launch_template" "this" {
